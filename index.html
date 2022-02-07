@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default"><i id="minusSign" class="fas fa-minus"></i></button>
+                           <input id="phone" type="text" class="form-control text-center" value="1">
+                           <button class="btn btn-default"><i id="plusSign" class="fas fa-plus"></i></button>
+                        </div>
+                        <h5 >$ <span id="PhonePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default"><i id="casingMinusSign" class="fas fa-minus"></i></button>
+                           <input type="text" id="casing" class="form-control text-center" value="1">
+                           <button class="btn btn-default"><i id="casingPlusSign" class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="casingPrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotal">1219</span> </h5>
+                        <h5>$0</h5>
+                        <h5>$ <span id="Total">1219</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- javacript strats here -->
+   <script>
+      // Iphone casing plus sign fuction starts here
+      const casingPlusSign =document.getElementById("casingPlusSign");
+      casingPlusSign.addEventListener("click",function(){
+         increment("casing");
+         priceAdd("casingPrice",59);
+         priceAdd("subTotal",59);
+         priceAdd("Total",59);
+
+      })
+      // Iphone plus sign fuction starts here
+      const plusSign =document.getElementById("plusSign");
+      plusSign.addEventListener("click",function(){
+
+          increment("phone");
+          priceAdd("PhonePrice",1219);
+          priceAdd("subTotal",1219);
+          priceAdd("Total",1219);
+
+      })
+      // Iphone casing plus sign fuction starts here
+      const minusSign =document.getElementById("minusSign");
+      minusSign.addEventListener("click",function(){
+         decrement("phone");
+         pricesub("PhonePrice",1219);
+         pricesub("subTotal",1219);
+         pricesub("Total",1219);
+      })
+      // Iphone  minus sign function starts here
+      const casingMinusSign =document.getElementById("casingMinusSign");
+      casingMinusSign.addEventListener("click",function(){
+        
+
+         decrement("casing");
+         pricesub("casingPrice",59);
+         pricesub("subTotal",59);
+         pricesub("Total",59);
+      })
+      // increment function 
+      function increment(id){
+         const phone =document.getElementById(id).value;
+         let phoneNum =parseFloat(phone);
+         let newNum =++phoneNum;
+         document.getElementById(id).value =newNum;
+      }
+      // decrement function
+      function decrement(id){
+
+         const phone =document.getElementById(id).value;
+         let phoneNum =parseFloat(phone);
+         let newNum =--phoneNum;
+         document.getElementById(id).value =newNum;
+      }
+      // phone price addition function
+      function priceAdd(id,num){
+         const PhonePrice =document.getElementById(id).innerText;
+         const PhonePriceNum =parseFloat(PhonePrice);
+         document.getElementById(id).innerText=num+ PhonePriceNum;
+      }
+      // phone price subtraction function
+      function pricesub(id,num){
+         const PhonePrice =document.getElementById(id).innerText;
+         const PhonePriceNum =parseFloat(PhonePrice);
+         document.getElementById(id).innerText= PhonePriceNum -num;
+      }
+   </script>
+</body>
+
+</html>
