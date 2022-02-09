@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i id="minusSign" class="fas fa-minus"></i></button>
-                           <input id="phone" type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i id="plusSign" class="fas fa-plus"></i></button>
+                           <button id="minusSign" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phone" type="text" class="form-control text-center" value="0">
+                           <button id="plusSign" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5 >$ <span id="PhonePrice">1219</span></h5>
+                        <h5>$ <span id="PhonePrice">0</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i id="casingMinusSign" class="fas fa-minus"></i></button>
-                           <input type="text" id="casing" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i id="casingPlusSign" class="fas fa-plus"></i></button>
+                           <button id="casingMinusSign" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id="casing" class="form-control text-center" value="0">
+                           <button id="casingPlusSign" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$ <span id="casingPrice">59</span></h5>
+                        <h5>$ <span id="casingPrice">0</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -59,14 +59,14 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax:</h5>
+                        <h5>Tax(10%):</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$ <span id="subTotal">1219</span> </h5>
-                        <h5>$0</h5>
-                        <h5>$ <span id="Total">1219</span></h5>
+                        <h5>$ <span id="subTotal">0</span> </h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5>$ <span id="Total">0</span></h5>
                      </div>
                   </div>
                </div>
@@ -76,75 +76,110 @@
             </div>
          </div>
       </div>
+      <!-- javascript for this section -->
+      <script>
+         // Iphone casing plus sign fuction starts here
+         const casingPlusSign = document.getElementById("casingPlusSign");
+         casingPlusSign.addEventListener("click", function () {
+            increment("casing");
+            priceAdd("casingPrice", 59);
+            subTotal();
+            tax();
+            Total();
+         })
+         // Iphone plus sign fuction starts here
+         const plusSign = document.getElementById("plusSign");
+         plusSign.addEventListener("click", function () {
+
+            increment("phone");
+            priceAdd("PhonePrice", 1219);
+            subTotal();
+            tax();
+            Total();
+         })
+         // Iphone casing plus sign fuction starts here
+         const minusSign = document.getElementById("minusSign");
+         minusSign.addEventListener("click", function () {
+            decrement("phone");
+            pricesub("PhonePrice", 1219);
+            subTotal();
+            tax();
+            Total();
+         })
+         // Iphone  minus sign function starts here
+         const casingMinusSign = document.getElementById("casingMinusSign");
+         casingMinusSign.addEventListener("click", function () {
+            decrement("casing");
+            pricesub("casingPrice", 59);
+            subTotal();
+            tax();
+            Total();
+         })
+         // increment function 
+         function increment(id) {
+            const phone = document.getElementById(id).value;
+            let phoneNum = parseFloat(phone);
+            let newNum = ++phoneNum;
+            document.getElementById(id).value = newNum;
+         }
+         // decrement function
+         function decrement(id) {
+
+            const phone = document.getElementById(id).value;
+            let phoneNum = parseFloat(phone);
+            let newNum = --phoneNum;
+            let casingPrice = document.getElementById("casingPrice").value;
+            
+            if (newNum >= 0) {
+               document.getElementById(id).value = newNum;
+
+            }
+         }
+         // phone price addition function
+         function priceAdd(id, num) {
+            const PhonePrice = document.getElementById(id).innerText;
+            const PhonePriceNum = parseFloat(PhonePrice);
+            document.getElementById(id).innerText = num + PhonePriceNum;
+         }
+         // phone price subtraction function
+         function pricesub(id, num) {
+            const PhonePrice = document.getElementById(id).innerText;
+            const PhonePriceNum = parseFloat(PhonePrice);
+            if (PhonePriceNum > 0) {
+               document.getElementById(id).innerText = PhonePriceNum - num;
+
+            }
+
+         }
+         // subtotal function
+         function subTotal() {
+            const PhonePrice = parseFloat(document.getElementById("PhonePrice").innerText);
+            const casingPrice = parseFloat(document.getElementById("casingPrice").innerText);
+            const subTotal = parseFloat(document.getElementById("subTotal").innerText);
+
+            document.getElementById("subTotal").innerText = PhonePrice + casingPrice;
+         }
+         // tax function
+         function tax() {
+            const PhonePrice = parseFloat(document.getElementById("PhonePrice").innerText);
+            const casingPrice = parseFloat(document.getElementById("casingPrice").innerText);
+            const tax = parseFloat(document.getElementById("tax").innerText);
+
+            document.getElementById("tax").innerText = Math.round(PhonePrice * .1 + casingPrice * .1);
+         }
+         // total function
+         function Total() {
+            const subTotal = parseFloat(document.getElementById("subTotal").innerText);
+            const tax = parseFloat(document.getElementById("tax").innerText);
+            const Total = parseFloat(document.getElementById("Total").innerText);
+
+            document.getElementById("Total").innerText = subTotal + tax;
+         }
+      </script>
    </section>
 
-   <!-- javacript strats here -->
-   <script>
-      // Iphone casing plus sign fuction starts here
-      const casingPlusSign =document.getElementById("casingPlusSign");
-      casingPlusSign.addEventListener("click",function(){
-         increment("casing");
-         priceAdd("casingPrice",59);
-         priceAdd("subTotal",59);
-         priceAdd("Total",59);
 
-      })
-      // Iphone plus sign fuction starts here
-      const plusSign =document.getElementById("plusSign");
-      plusSign.addEventListener("click",function(){
 
-          increment("phone");
-          priceAdd("PhonePrice",1219);
-          priceAdd("subTotal",1219);
-          priceAdd("Total",1219);
-
-      })
-      // Iphone casing plus sign fuction starts here
-      const minusSign =document.getElementById("minusSign");
-      minusSign.addEventListener("click",function(){
-         decrement("phone");
-         pricesub("PhonePrice",1219);
-         pricesub("subTotal",1219);
-         pricesub("Total",1219);
-      })
-      // Iphone  minus sign function starts here
-      const casingMinusSign =document.getElementById("casingMinusSign");
-      casingMinusSign.addEventListener("click",function(){
-        
-
-         decrement("casing");
-         pricesub("casingPrice",59);
-         pricesub("subTotal",59);
-         pricesub("Total",59);
-      })
-      // increment function 
-      function increment(id){
-         const phone =document.getElementById(id).value;
-         let phoneNum =parseFloat(phone);
-         let newNum =++phoneNum;
-         document.getElementById(id).value =newNum;
-      }
-      // decrement function
-      function decrement(id){
-
-         const phone =document.getElementById(id).value;
-         let phoneNum =parseFloat(phone);
-         let newNum =--phoneNum;
-         document.getElementById(id).value =newNum;
-      }
-      // phone price addition function
-      function priceAdd(id,num){
-         const PhonePrice =document.getElementById(id).innerText;
-         const PhonePriceNum =parseFloat(PhonePrice);
-         document.getElementById(id).innerText=num+ PhonePriceNum;
-      }
-      // phone price subtraction function
-      function pricesub(id,num){
-         const PhonePrice =document.getElementById(id).innerText;
-         const PhonePriceNum =parseFloat(PhonePrice);
-         document.getElementById(id).innerText= PhonePriceNum -num;
-      }
-   </script>
 </body>
 
 </html>
